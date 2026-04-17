@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { INITIAL_STATE } from './constants/initialState';
 import ReportForm from './components/ReportForm';
 import ReportTemplate from './components/ReportTemplate';
-import { FileText, Edit3, Download, Eye } from 'lucide-react';
+import { FileText, Edit3, Download, Eye, Menu, X } from 'lucide-react';
 import { exportToPDF, exportToWord } from './utils/exportUtils';
 
 function App() {
   const [data, setData] = useState(INITIAL_STATE);
   const [activeTab, setActiveTab] = useState('edit'); // 'edit' or 'preview'
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   React.useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -26,22 +27,22 @@ function App() {
     <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans selection:bg-indigo-500/30">
       {/* Header */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-[#0f172a]/80 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 relative">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-indigo-600 rounded-lg shadow-lg shadow-indigo-500/20">
-              <FileText className="w-6 h-6 text-white" />
+              <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+              <h1 className="text-base sm:text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
                 Loan Verification System
               </h1>
-              <p className="text-[10px] uppercase tracking-widest text-slate-500 font-semibold">
+              <p className="text-[8px] sm:text-[10px] uppercase tracking-widest text-slate-500 font-semibold">
                 Parvez & Narayana CA
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 bg-slate-900/50 p-1 rounded-xl border border-slate-800">
+          <div className="hidden md:flex items-center gap-2 bg-slate-900/50 p-1 rounded-xl border border-slate-800">
             <button
               onClick={() => setActiveTab('edit')}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${activeTab === 'edit'
@@ -63,7 +64,42 @@ function App() {
               Preview
             </button>
           </div>
+
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-slate-400 hover:text-white p-2"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Navbar Overlay */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden absolute top-16 left-0 w-full bg-[#0f172a] border-b border-slate-800 p-4 flex flex-col gap-3 shadow-2xl">
+            <button
+              onClick={() => { setActiveTab('edit'); setIsMobileMenuOpen(false); }}
+              className={`flex items-center w-full gap-2 px-4 py-3 rounded-lg text-sm font-medium transition-all ${activeTab === 'edit'
+                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
+                }`}
+            >
+              <Edit3 className="w-4 h-4" />
+              Editor Mode
+            </button>
+            <button
+              onClick={() => { setActiveTab('preview'); setIsMobileMenuOpen(false); }}
+              className={`flex items-center w-full gap-2 px-4 py-3 rounded-lg text-sm font-medium transition-all ${activeTab === 'preview'
+                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
+                }`}
+            >
+              <Eye className="w-4 h-4" />
+              Preview & Export
+            </button>
+          </div>
+        )}
       </header>
 
       <main className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-8">

@@ -17,25 +17,29 @@ const SectionHeader = ({ title }) => (
   </div>
 );
 
-const FooterSignatures = ({ data }) => (
+const FooterSignatures = ({ data, rightOnly = false }) => (
   <div className="mt-8 grid grid-cols-2 gap-10 text-[10px] border-t-2 border-slate-900 pt-6">
     <div className="space-y-4">
-      <div className="flex justify-between">
-        <span className="font-bold">FIELD EXECUTIVE NAME</span>
-        <span className="border-b border-black flex-1 ml-2 uppercase font-medium">{data.fieldExecutiveName}</span>
-      </div>
-      <div className="flex justify-between">
-        <span className="font-bold">FIELD EXECUTIVE MOBILE NO.</span>
-        <span className="border-b border-black flex-1 ml-2">{data.fieldExecutiveMobile}</span>
-      </div>
-      <div className="flex justify-between items-end h-12">
-        <span className="font-bold">FIELD EXECUTIVE SIGN</span>
-        <span className="border-b border-black flex-1 ml-2 italic text-gray-300">Space for signature</span>
-      </div>
-      <div className="pt-4 flex gap-4 text-[9px]">
-        <span>Vijayawada & Gudiwada</span>
-        <span>Contact: 9014221011, 9491349091</span>
-      </div>
+      {!rightOnly && (
+        <>
+          <div className="flex justify-between items-end">
+            <span className="font-bold">FIELD EXECUTIVE NAME</span>
+            <div className="border-b border-black flex-1 ml-2 uppercase font-medium pb-1">{data.fieldExecutiveName}</div>
+          </div>
+          <div className="flex justify-between items-end">
+            <span className="font-bold">FIELD EXECUTIVE MOBILE NO.</span>
+            <div className="border-b border-black flex-1 ml-2 pb-1">{data.fieldExecutiveMobile}</div>
+          </div>
+          <div className="flex justify-between items-end h-12">
+            <span className="font-bold">FIELD EXECUTIVE SIGN</span>
+            <div className="border-b border-black flex-1 ml-2 italic text-gray-300 pb-1">Space for signature</div>
+          </div>
+          <div className="pt-4 flex gap-4 text-[9px]">
+            <span>Vijayawada & Gudiwada</span>
+            <span>Contact: 9014221011, 9491349091</span>
+          </div>
+        </>
+      )}
     </div>
     <div className="space-y-4">
        <div className="flex justify-between items-end h-12 mb-4">
@@ -143,42 +147,50 @@ export default function ReportTemplate({ data }) {
           <tbody>
              <tr>
                <td className="border border-slate-400 p-2 w-1/4 font-bold">Locality / Surrounding :</td>
-               <td className="border border-slate-400 p-2 grid grid-cols-2 gap-x-4">
-                  {['Slum Area', 'Underdeveloped Area', 'Residential Buildings', 'Small/Medium Size Shops', 'Chawl Area', 'Big Housing Complex', 'Commercial Building'].map(opt => (
-                    <div key={opt} className="flex items-center gap-1">
-                       <span className={`w-3 h-3 border border-black flex items-center justify-center text-[8px]`}>
-                         {data.observations.locality === opt ? '✓' : ''}
-                       </span>
-                       <span>{opt}</span>
-                    </div>
-                  ))}
+               <td className="border border-slate-400 p-2">
+                  <div className="flex flex-wrap w-full">
+                    {['Slum Area', 'Underdeveloped Area', 'Residential Buildings', 'Small/Medium Size Shops', 'Chawl Area', 'Big Housing Complex', 'Commercial Building'].map(opt => (
+                      <div key={opt} className="flex items-center gap-1 w-1/2 mb-2">
+                         <span className={`w-3 h-3 border border-black flex items-center justify-center text-[8px]`}>
+                           {data.observations.locality === opt ? '✓' : ''}
+                         </span>
+                         <span>{opt}</span>
+                      </div>
+                    ))}
+                  </div>
                </td>
              </tr>
              <tr>
                <td className="border border-slate-400 p-2 font-bold">Accessibility :</td>
-               <td className="border border-slate-400 p-2 space-y-1">
-                  {['Easy to locate and access', 'Difficult to locate', 'Gulli (very narrow road)', 'Untraceable'].map(opt => (
-                    <div key={opt} className="flex items-center gap-1">
-                       <span className="w-3 h-3 border border-black flex items-center justify-center text-[8px]">
-                         {data.observations.accessibility === opt ? '✓' : ''}
-                       </span>
-                       <span>{opt}</span>
-                    </div>
-                  ))}
+               <td className="border border-slate-400 p-2">
+                  <div className="flex flex-col gap-2">
+                    {['Easy to locate and access', 'Difficult to locate', 'Gulli (very narrow road)', 'Untraceable'].map(opt => (
+                      <div key={opt} className="flex items-center gap-1">
+                         <span className="w-3 h-3 border border-black flex items-center justify-center text-[8px]">
+                           {data.observations.accessibility === opt ? '✓' : ''}
+                         </span>
+                         <span>{opt}</span>
+                      </div>
+                    ))}
+                  </div>
                </td>
              </tr>
              <tr>
                <td className="border border-slate-400 p-2 font-bold">Is the entrance motorable</td>
-               <td className="border border-slate-400 p-2 flex gap-10">
-                  <div className="flex gap-1"><span className="w-3 h-3 border border-black flex items-center justify-center">{data.observations.motorable === 'Yes' ? '✓' : ''}</span> Yes</div>
-                  <div className="flex gap-1"><span className="w-3 h-3 border border-black flex items-center justify-center">{data.observations.motorable === 'No' ? '✓' : ''}</span> NO</div>
+               <td className="border border-slate-400 p-2">
+                  <div className="flex gap-10">
+                    <div className="flex gap-1"><span className="w-3 h-3 border border-black flex items-center justify-center">{data.observations.motorable === 'Yes' ? '✓' : ''}</span> Yes</div>
+                    <div className="flex gap-1"><span className="w-3 h-3 border border-black flex items-center justify-center">{data.observations.motorable === 'No' ? '✓' : ''}</span> NO</div>
+                  </div>
                </td>
              </tr>
              <tr>
                <td className="border border-slate-400 p-2 font-bold">Is address confirmed</td>
-               <td className="border border-slate-400 p-2 flex gap-10">
-                  <div className="flex gap-1"><span className="w-3 h-3 border border-black flex items-center justify-center">{data.observations.addressConfirmed === 'Yes' ? '✓' : ''}</span> Yes</div>
-                  <div className="flex gap-1"><span className="w-3 h-3 border border-black flex items-center justify-center">{data.observations.addressConfirmed === 'No' ? '✓' : ''}</span> NO</div>
+               <td className="border border-slate-400 p-2">
+                  <div className="flex gap-10">
+                    <div className="flex gap-1"><span className="w-3 h-3 border border-black flex items-center justify-center">{data.observations.addressConfirmed === 'Yes' ? '✓' : ''}</span> Yes</div>
+                    <div className="flex gap-1"><span className="w-3 h-3 border border-black flex items-center justify-center">{data.observations.addressConfirmed === 'No' ? '✓' : ''}</span> NO</div>
+                  </div>
                </td>
              </tr>
              <tr>
@@ -201,7 +213,7 @@ export default function ReportTemplate({ data }) {
            ))}
         </div>
 
-        <FooterSignatures data={data} />
+        <FooterSignatures data={data} rightOnly={true} />
       </PageWrapper>
 
       {/* PAGE 2: Residence Details & Home Preview */}
