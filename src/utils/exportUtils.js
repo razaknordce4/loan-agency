@@ -33,6 +33,14 @@ export const exportToPDF = async (containerId, baseFilename = 'Verification_Repo
   const pages = container.querySelectorAll('.export-page');
   if (pages.length === 0) return;
 
+  const scaledParent = container.parentElement;
+  const originalTransform = scaledParent.style.transform;
+  
+  if (originalTransform) {
+     scaledParent.style.transform = 'none';
+     await new Promise(resolve => setTimeout(resolve, 50));
+  }
+
   try {
     const pdf = new jsPDF({
       orientation: 'portrait',
@@ -46,17 +54,17 @@ export const exportToPDF = async (containerId, baseFilename = 'Verification_Repo
 
     for (let i = 0; i < pages.length; i++) {
       const canvas = await html2canvas(pages[i], {
-        scale: 1.5, // Balanced quality/memory
+        scale: 1.5,
         useCORS: true,
         logging: false,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        windowWidth: 850
       });
 
-      const imgData = canvas.toDataURL('image/jpeg', 0.85); // JPEG is smaller than PNG
+      const imgData = canvas.toDataURL('image/jpeg', 0.85);
       
       if (i > 0) pdf.addPage();
       
-      // Calculate height to maintain aspect ratio on A4
       const imgProps = pdf.getImageProperties(imgData);
       const ratio = imgProps.width / imgProps.height;
       const heightInPdf = pdfWidth / ratio;
@@ -69,6 +77,8 @@ export const exportToPDF = async (containerId, baseFilename = 'Verification_Repo
   } catch (error) {
     console.error('Error generating PDF:', error);
     alert('Failed to generate PDF. The document might be too large for your browser memory.');
+  } finally {
+    if (originalTransform) scaledParent.style.transform = originalTransform;
   }
 };
 
@@ -87,16 +97,25 @@ export const exportToWord = async (data, containerId = 'report-template') => {
     alert("No pages found to export.");
     return;
   }
+  
+  const scaledParent = container.parentElement;
+  const originalTransform = scaledParent.style.transform;
+  
+  if (originalTransform) {
+     scaledParent.style.transform = 'none';
+     await new Promise(resolve => setTimeout(resolve, 50));
+  }
 
   try {
     const sections = [];
 
     for (let i = 0; i < pages.length; i++) {
       const canvas = await html2canvas(pages[i], {
-        scale: 1.5, // Balanced quality/memory
+        scale: 1.5,
         useCORS: true,
         logging: false,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        windowWidth: 850
       });
 
       const imgData = canvas.toDataURL('image/jpeg', 0.85);
@@ -131,5 +150,7 @@ export const exportToWord = async (data, containerId = 'report-template') => {
   } catch (error) {
     console.error('Error generating Word document:', error);
     alert('Failed to generate Word document. The document might be too large for your browser memory.');
+  } finally {
+     if (originalTransform) scaledParent.style.transform = originalTransform;
   }
 };

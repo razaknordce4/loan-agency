@@ -275,11 +275,11 @@ export default function ReportTemplate({ data }) {
         <div className="grid grid-cols-2 gap-4 items-end mt-auto pb-10">
            <div className="flex flex-col items-center">
               <span className="text-[14px] font-black italic mb-4">{data.finalStatus} ✓</span>
-              <div className="w-full aspect-[4/3] border border-gray-200 bg-gray-50 flex items-center justify-center overflow-hidden">
+              <div className="w-full h-[283px] border border-gray-200 bg-gray-50 flex items-center justify-center overflow-hidden">
                  {data.photos.business1 ? <img src={data.photos.business1} className="w-full h-full object-cover" /> : <span className="text-[10px] text-gray-400 italic">Business Image</span>}
               </div>
            </div>
-           <div className="w-full aspect-[4/3] border border-gray-200 bg-gray-50 flex items-center justify-center overflow-hidden">
+           <div className="w-full h-[283px] border border-gray-200 bg-gray-50 flex items-center justify-center overflow-hidden">
                {data.photos.location ? <img src={data.photos.location} className="w-full h-full object-cover" /> : <span className="text-[10px] text-gray-400 italic">Building/House Image</span>}
            </div>
         </div>
@@ -334,7 +334,7 @@ export default function ReportTemplate({ data }) {
         </div>
 
         <div className="flex justify-center mb-8">
-            <div className="w-1/2 aspect-[4/3] border border-gray-300 overflow-hidden bg-gray-50 flex items-center justify-center">
+            <div className="w-1/2 h-[283px] border border-gray-300 overflow-hidden bg-gray-50 flex items-center justify-center">
                  {data.photos.business1 ? <img src={data.photos.business1} className="w-full h-full object-cover" /> : <span className="text-[10px] text-gray-300">Business Building Photo</span>}
             </div>
         </div>
@@ -346,10 +346,10 @@ export default function ReportTemplate({ data }) {
       <PageWrapper pageNumber={4}>
          <Header data={data} title="Verification Evidence" subtitle="Business Photos" />
          <div className="flex flex-col gap-10 mt-10">
-            <div className="w-full aspect-[16/9] border-2 border-slate-100 overflow-hidden flex items-center justify-center bg-slate-50">
+            <div className="w-full h-[433px] border-2 border-slate-100 overflow-hidden flex items-center justify-center bg-slate-50">
                {data.photos.business1 ? <img src={data.photos.business1} className="w-full h-full object-cover" /> : <span className="text-gray-300 uppercase font-black tracking-tighter italic">Business Image 1 (Full View)</span>}
             </div>
-            <div className="w-full aspect-[16/9] border-2 border-slate-100 overflow-hidden flex items-center justify-center bg-slate-50">
+            <div className="w-full h-[433px] border-2 border-slate-100 overflow-hidden flex items-center justify-center bg-slate-50">
                {data.photos.business2 ? <img src={data.photos.business2} className="w-full h-full object-cover" /> : <span className="text-gray-300 uppercase font-black tracking-tighter italic">Business Image 2 (Inside/Closer View)</span>}
             </div>
          </div>
@@ -359,10 +359,10 @@ export default function ReportTemplate({ data }) {
       <PageWrapper pageNumber={5}>
          <Header data={data} title="Verification Evidence" subtitle="Building Footage" />
          <div className="flex flex-col gap-10 mt-10">
-            <div className="w-full aspect-[16/9] border-2 border-slate-100 overflow-hidden flex items-center justify-center bg-slate-50">
+            <div className="w-full h-[433px] border-2 border-slate-100 overflow-hidden flex items-center justify-center bg-slate-50">
                {data.photos.buildingFootage1 ? <img src={data.photos.buildingFootage1} className="w-full h-full object-cover" /> : <span className="text-gray-300 uppercase font-black tracking-tighter italic">Building Footage 1</span>}
             </div>
-            <div className="w-full aspect-[16/9] border-2 border-slate-100 overflow-hidden flex items-center justify-center bg-slate-50">
+            <div className="w-full h-[433px] border-2 border-slate-100 overflow-hidden flex items-center justify-center bg-slate-50">
                {data.photos.buildingFootage2 ? <img src={data.photos.buildingFootage2} className="w-full h-full object-cover" /> : <span className="text-gray-300 uppercase font-black tracking-tighter italic">Building Footage 2</span>}
             </div>
          </div>
@@ -376,10 +376,10 @@ export default function ReportTemplate({ data }) {
             <p className="leading-relaxed">RESIDENTIAL STATUS CONFIRMED. NEIGHBOURS RECOGNIZED THE FAMILY MEMBERS. ALL PARAMETERS FOUND IN ORDER DURING ON-SITE INSPECTION.</p>
          </div>
          <div className="grid grid-cols-1 gap-10">
-            <div className="w-full aspect-[3/2] border-2 border-slate-100 overflow-hidden flex items-center justify-center bg-slate-50">
+            <div className="w-full h-[513px] border-2 border-slate-100 overflow-hidden flex items-center justify-center bg-slate-50">
                {data.photos.insideHome1 ? <img src={data.photos.insideHome1} className="w-full h-full object-cover" /> : <span className="text-gray-300 uppercase font-black tracking-tighter italic">Inside Home Image 1</span>}
             </div>
-            <div className="w-full aspect-[3/2] border-2 border-slate-100 overflow-hidden flex items-center justify-center bg-slate-50">
+            <div className="w-full h-[513px] border-2 border-slate-100 overflow-hidden flex items-center justify-center bg-slate-50">
                {data.photos.insideHome2 ? <img src={data.photos.insideHome2} className="w-full h-full object-cover" /> : <span className="text-gray-300 uppercase font-black tracking-tighter italic">Inside Home Image 2</span>}
             </div>
          </div>
@@ -390,7 +390,7 @@ export default function ReportTemplate({ data }) {
          <Header data={data} title="Supporting Documents" subtitle="Applicant Identity Proof" />
          <div className="flex flex-col items-center gap-4 mt-8">
             <h3 className="font-black text-xs underline uppercase">Aadhar Card Copy</h3>
-            <div className="w-full aspect-[1/1.414] border-4 border-slate-200 shadow-2xl overflow-hidden bg-slate-50 flex items-center justify-center">
+            <div className="w-full h-[1089px] border-4 border-slate-200 shadow-2xl overflow-hidden bg-slate-50 flex items-center justify-center">
                 {data.photos.applicantAadhar ? <img src={data.photos.applicantAadhar} className="w-full h-full object-contain" /> : <span className="text-slate-300 text-3xl font-black italic opacity-20">Full Size Aadhar Image</span>}
             </div>
          </div>
@@ -401,7 +401,7 @@ export default function ReportTemplate({ data }) {
          <Header data={data} title="Supporting Documents" subtitle="Co-Applicant Identity Proof" />
          <div className="flex flex-col items-center gap-4 mt-8">
             <h3 className="font-black text-xs underline uppercase">Co-Applicant Aadhar Card Copy</h3>
-            <div className="w-full aspect-[1/1.414] border-4 border-slate-200 shadow-2xl overflow-hidden bg-slate-50 flex items-center justify-center">
+            <div className="w-full h-[1089px] border-4 border-slate-200 shadow-2xl overflow-hidden bg-slate-50 flex items-center justify-center">
                 {data.photos.coApplicantAadhar ? <img src={data.photos.coApplicantAadhar} className="w-full h-full object-contain" /> : <span className="text-slate-300 text-3xl font-black italic opacity-20">Full Size Co-Applicant Aadhar Image</span>}
             </div>
          </div>
