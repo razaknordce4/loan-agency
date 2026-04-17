@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vite": "^7.3.2",
     "clsx": "^2.1.1",
     "docx": "^9.6.1",
     "file-saver": "^2.0.5",
