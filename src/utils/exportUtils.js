@@ -100,11 +100,11 @@ export const exportToWord = async (data, containerId = 'report-template') => {
       });
 
       const imgData = canvas.toDataURL('image/jpeg', 0.85);
-      const base64Data = imgData.split(',')[1];
+      const arrayBuffer = await fetch(imgData).then(res => res.arrayBuffer());
       
       const ratio = canvas.height / canvas.width;
       const wordWidth = 794;
-      const wordHeight = wordWidth * ratio;
+      const wordHeight = Math.round(wordWidth * ratio);
 
       sections.push({
         properties: {
@@ -114,7 +114,7 @@ export const exportToWord = async (data, containerId = 'report-template') => {
           new Paragraph({
             children: [
               new ImageRun({
-                data: base64Data,
+                data: arrayBuffer,
                 transformation: { width: wordWidth, height: wordHeight }
               })
             ]
