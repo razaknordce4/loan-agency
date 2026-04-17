@@ -6,6 +6,7 @@ export const INITIAL_STATE = {
   rlmsNumber: "",
   referenceNumber: "",
   caName: "PARVEZ AND NARAYANA",
+  verificationType: "Business",
 
   // Applicant Data
   applicantName: "",
@@ -56,6 +57,21 @@ export const INITIAL_STATE = {
     nameplateSeen: "No",
     text: "", // Executive Comments for Business
     status: "POSITIVE", 
+  },
+
+  // Employment Details (Page 3 - Alternative)
+  employmentDetails: {
+    employerName: "",
+    designation: "",
+    natureOfBusiness: "",
+    jobSince: "",
+    employmentType: "",
+    officeDescription: "",
+    salarySlipSeen: "No",
+    staffCount: "0",
+    boardSeen: "No",
+    text: "", // Executive Comments for Job
+    status: "POSITIVE",
   },
 
   // Executive Comments (Page 2 & Mixed)

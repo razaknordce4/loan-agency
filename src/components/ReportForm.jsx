@@ -108,23 +108,47 @@ export default function ReportForm({ data, updateData }) {
         </div>
       </section>
 
-      {/* Page 3: Business Verification Details */}
+      {/* Page 3: Business/Job Verification Details */}
       <section className="bg-slate-900/40 p-4 sm:p-8 rounded-3xl border border-slate-800/60 shadow-xl backdrop-blur-sm">
-        <SectionHeader icon={Building2} title="Business Verification" description="Detailed parameters (Page 3)" />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <InputField label="Name of Premises" value={data.businessDetails.premiseName} onChange={v => updateNested('businessDetails', 'premiseName', v)} placeholder="e.g., Sree Balaji Enterprises" />
-          <InputField label="Applicant Designation" value={data.businessDetails.designation} onChange={v => updateNested('businessDetails', 'designation', v)} placeholder="e.g., Proprietor" />
-          <InputField label="Nature of Business" value={data.businessDetails.natureOfBusiness} onChange={v => updateNested('businessDetails', 'natureOfBusiness', v)} placeholder="e.g., General Stores" />
-          <InputField label="Doing Business Since" value={data.businessDetails.businessSince} onChange={v => updateNested('businessDetails', 'businessSince', v)} placeholder="e.g., 2018 onwards" />
-          <ToggleGroup label="Business Activities Seen" options={['Yes', 'No']} value={data.businessDetails.activitySeen} onChange={v => updateNested('businessDetails', 'activitySeen', v)} />
-          <InputField label="Describe the Building" value={data.businessDetails.buildingDescription} onChange={v => updateNested('businessDetails', 'buildingDescription', v)} placeholder="e.g., RCC Structure" />
-          <InputField label="Premises Owned / Rented" value={data.businessDetails.ownershipType} onChange={v => updateNested('businessDetails', 'ownershipType', v)} placeholder="Owned / Rented" />
-          <InputField label="No. of People Seen" type="number" value={data.businessDetails.peopleCount} onChange={v => updateNested('businessDetails', 'peopleCount', v)} placeholder="Approx staff count" />
-          <ToggleGroup label="Business Nameplate Seen" options={['Yes', 'No', 'Temporary']} value={data.businessDetails.nameplateSeen} onChange={v => updateNested('businessDetails', 'nameplateSeen', v)} />
+        <SectionHeader icon={Building2} title={data.verificationType === 'Job' ? "Employment Verification" : "Business Verification"} description="Detailed parameters (Page 3)" />
+        <div className="mb-8 p-4 bg-slate-800/50 rounded-2xl border border-slate-700">
+           <ToggleGroup label="Occupation" options={['Business', 'Job']} value={data.verificationType || 'Business'} onChange={v => updateData({ verificationType: v })} />
         </div>
-        <div className="mt-6">
-           <TextAreaField label="Field Executive's Comments (Business)" value={data.businessDetails.text} onChange={v => updateNested('businessDetails', 'text', v)} placeholder="Detailed observation of business premises..." />
-        </div>
+        {data.verificationType === 'Job' ? (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <InputField label="Employer / Company Name" value={data.employmentDetails.employerName} onChange={v => updateNested('employmentDetails', 'employerName', v)} placeholder="e.g., TCS" />
+              <InputField label="Applicant Designation" value={data.employmentDetails.designation} onChange={v => updateNested('employmentDetails', 'designation', v)} placeholder="e.g., Software Engineer" />
+              <InputField label="Nature of Company Business" value={data.employmentDetails.natureOfBusiness} onChange={v => updateNested('employmentDetails', 'natureOfBusiness', v)} placeholder="e.g., IT Services" />
+              <InputField label="Working Since" value={data.employmentDetails.jobSince} onChange={v => updateNested('employmentDetails', 'jobSince', v)} placeholder="e.g., 2020 onwards" />
+              <ToggleGroup label="Employment Type" options={['Permanent', 'Contract']} value={data.employmentDetails.employmentType} onChange={v => updateNested('employmentDetails', 'employmentType', v)} />
+              <InputField label="Describe the Office Building" value={data.employmentDetails.officeDescription} onChange={v => updateNested('employmentDetails', 'officeDescription', v)} placeholder="e.g., Glass Facade, Multi-story" />
+              <ToggleGroup label="ID Card / Payslip Seen" options={['Yes', 'No']} value={data.employmentDetails.salarySlipSeen} onChange={v => updateNested('employmentDetails', 'salarySlipSeen', v)} />
+              <InputField label="Approx. Staff Count" type="number" value={data.employmentDetails.staffCount} onChange={v => updateNested('employmentDetails', 'staffCount', v)} placeholder="Approx staff count" />
+              <ToggleGroup label="Company Board Seen" options={['Yes', 'No', 'Temporary']} value={data.employmentDetails.boardSeen} onChange={v => updateNested('employmentDetails', 'boardSeen', v)} />
+            </div>
+            <div className="mt-6">
+              <TextAreaField label="Field Executive's Comments (Job)" value={data.employmentDetails.text} onChange={v => updateNested('employmentDetails', 'text', v)} placeholder="Detailed observation of office premises..." />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <InputField label="Name of Premises" value={data.businessDetails.premiseName} onChange={v => updateNested('businessDetails', 'premiseName', v)} placeholder="e.g., Sree Balaji Enterprises" />
+              <InputField label="Applicant Designation" value={data.businessDetails.designation} onChange={v => updateNested('businessDetails', 'designation', v)} placeholder="e.g., Proprietor" />
+              <InputField label="Nature of Business" value={data.businessDetails.natureOfBusiness} onChange={v => updateNested('businessDetails', 'natureOfBusiness', v)} placeholder="e.g., General Stores" />
+              <InputField label="Doing Business Since" value={data.businessDetails.businessSince} onChange={v => updateNested('businessDetails', 'businessSince', v)} placeholder="e.g., 2018 onwards" />
+              <ToggleGroup label="Business Activities Seen" options={['Yes', 'No']} value={data.businessDetails.activitySeen} onChange={v => updateNested('businessDetails', 'activitySeen', v)} />
+              <InputField label="Describe the Building" value={data.businessDetails.buildingDescription} onChange={v => updateNested('businessDetails', 'buildingDescription', v)} placeholder="e.g., RCC Structure" />
+              <InputField label="Premises Owned / Rented" value={data.businessDetails.ownershipType} onChange={v => updateNested('businessDetails', 'ownershipType', v)} placeholder="Owned / Rented" />
+              <InputField label="No. of People Seen" type="number" value={data.businessDetails.peopleCount} onChange={v => updateNested('businessDetails', 'peopleCount', v)} placeholder="Approx staff count" />
+              <ToggleGroup label="Business Nameplate Seen" options={['Yes', 'No', 'Temporary']} value={data.businessDetails.nameplateSeen} onChange={v => updateNested('businessDetails', 'nameplateSeen', v)} />
+            </div>
+            <div className="mt-6">
+              <TextAreaField label="Field Executive's Comments (Business)" value={data.businessDetails.text} onChange={v => updateNested('businessDetails', 'text', v)} placeholder="Detailed observation of business premises..." />
+            </div>
+          </>
+        )}
       </section>
 
       {/* Photo Uploads Grid (Pages 4-8) */}
@@ -132,9 +156,9 @@ export default function ReportForm({ data, updateData }) {
         <SectionHeader icon={Camera} title="Evidence Feed" description="Photography and ID documents (Pages 4-8)" />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
            <div className="space-y-4">
-             <h4 className="text-slate-400 font-bold uppercase text-xs border-b border-slate-800 pb-2">Business (P. 3-4)</h4>
-             <ImageUpload label="Business Image 1" preview={data.photos.business1} onUpload={v => updatePhoto('business1', v)} />
-             <ImageUpload label="Business Image 2" preview={data.photos.business2} onUpload={v => updatePhoto('business2', v)} />
+             <h4 className="text-slate-400 font-bold uppercase text-xs border-b border-slate-800 pb-2">{data.verificationType === 'Job' ? 'Office' : 'Business'} (P. 3-4)</h4>
+             <ImageUpload label={data.verificationType === 'Job' ? "Office Image 1" : "Business Image 1"} preview={data.photos.business1} onUpload={v => updatePhoto('business1', v)} />
+             <ImageUpload label={data.verificationType === 'Job' ? "Office Image 2" : "Business Image 2"} preview={data.photos.business2} onUpload={v => updatePhoto('business2', v)} />
            </div>
            <div className="space-y-4">
              <h4 className="text-slate-400 font-bold uppercase text-xs border-b border-slate-800 pb-2">Location (P. 2-5)</h4>

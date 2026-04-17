@@ -299,9 +299,9 @@ export default function ReportTemplate({ data }) {
         <FooterSignatures data={data} />
       </PageWrapper>
 
-      {/* PAGE 3: Business Verification Page */}
+      {/* PAGE 3: Business/Job Verification Page */}
       <PageWrapper pageNumber={3}>
-        <Header data={data} title="Business Verification Report" subtitle="(STRICTLY PRIVATE AND CONFIDENTIAL)" />
+        <Header data={data} title={data.verificationType === 'Job' ? "Employment Verification Report" : "Business Verification Report"} subtitle="(STRICTLY PRIVATE AND CONFIDENTIAL)" />
         
         <div className="space-y-4 text-[11px] mb-8">
            <div className="flex justify-between">
@@ -321,7 +321,17 @@ export default function ReportTemplate({ data }) {
         </div>
 
         <div className="grid grid-cols-1 gap-3 text-[10px] border-2 border-slate-100 p-6 rounded-lg mb-6">
-           {[
+           {(data.verificationType === 'Job' ? [
+             { l: 'Employer / Company Name', v: data.employmentDetails.employerName },
+             { l: 'Applicant Designation', v: data.employmentDetails.designation },
+             { l: 'Nature of Company Business', v: data.employmentDetails.natureOfBusiness },
+             { l: 'Working Since', v: data.employmentDetails.jobSince },
+             { l: 'Employment Type', v: data.employmentDetails.employmentType },
+             { l: 'Describe the Office Building', v: data.employmentDetails.officeDescription },
+             { l: 'ID Card / Payslip Seen', v: data.employmentDetails.salarySlipSeen },
+             { l: 'Approx. Staff Count', v: data.employmentDetails.staffCount },
+             { l: 'Company Board Seen', v: data.employmentDetails.boardSeen }
+           ] : [
              { l: 'Name of the premises', v: data.businessDetails.premiseName },
              { l: 'Applicant designation', v: data.businessDetails.designation },
              { l: 'Nature of the Business', v: data.businessDetails.natureOfBusiness },
@@ -331,7 +341,7 @@ export default function ReportTemplate({ data }) {
              { l: 'Premises Owned / Rented', v: data.businessDetails.ownershipType },
              { l: 'No. of people seen', v: data.businessDetails.peopleCount },
              { l: 'Business name plate seen', v: data.businessDetails.nameplateSeen }
-           ].map(row => (
+           ]).map(row => (
              <div key={row.l} className="flex border-b border-slate-100 pb-1">
                 <span className="w-64 font-bold text-slate-700">{row.l}</span>
                 <span className="font-black uppercase text-slate-900">: {row.v}</span>
@@ -341,28 +351,28 @@ export default function ReportTemplate({ data }) {
 
         <div className="border border-slate-900 p-4 min-h-[120px] mb-6">
            <h4 className="font-black text-[10px] underline mb-4 uppercase">FIELD EXECUTIVE'S COMMENTS:</h4>
-           <p className="text-[10px] font-medium leading-relaxed uppercase">{data.businessDetails.text}</p>
+           <p className="text-[10px] font-medium leading-relaxed uppercase">{data.verificationType === 'Job' ? data.employmentDetails.text : data.businessDetails.text}</p>
            <h4 className="font-black text-[12px] text-center mt-6 uppercase">HENCE {data.finalStatus} REPORT IS GIVEN.</h4>
         </div>
 
         <div className="flex justify-center mb-8">
             <div className="w-1/2 h-[283px] border border-gray-300 overflow-hidden bg-gray-50 flex items-center justify-center">
-                 {data.photos.business1 ? <img src={data.photos.business1} className="w-full h-full object-cover" /> : <span className="text-[10px] text-gray-300">Business Building Photo</span>}
+                 {data.photos.business1 ? <img src={data.photos.business1} className="w-full h-full object-cover" /> : <span className="text-[10px] text-gray-300">{data.verificationType === 'Job' ? 'Office Building Photo' : 'Business Building Photo'}</span>}
             </div>
         </div>
 
         <FooterSignatures data={data} />
       </PageWrapper>
 
-      {/* PAGE 4: Two Business Images */}
+      {/* PAGE 4: Two Business/Office Images */}
       <PageWrapper pageNumber={4}>
-         <Header data={data} title="Verification Evidence" subtitle="Business Photos" />
+         <Header data={data} title="Verification Evidence" subtitle={data.verificationType === 'Job' ? "Office Photos" : "Business Photos"} />
          <div className="flex flex-col gap-10 mt-10">
             <div className="w-full h-[433px] border-2 border-slate-100 overflow-hidden flex items-center justify-center bg-slate-50">
-               {data.photos.business1 ? <img src={data.photos.business1} className="w-full h-full object-cover" /> : <span className="text-gray-300 uppercase font-black tracking-tighter italic">Business Image 1 (Full View)</span>}
+               {data.photos.business1 ? <img src={data.photos.business1} className="w-full h-full object-cover" /> : <span className="text-gray-300 uppercase font-black tracking-tighter italic">{data.verificationType === 'Job' ? "Office Image 1 (Full View)" : "Business Image 1 (Full View)"}</span>}
             </div>
             <div className="w-full h-[433px] border-2 border-slate-100 overflow-hidden flex items-center justify-center bg-slate-50">
-               {data.photos.business2 ? <img src={data.photos.business2} className="w-full h-full object-cover" /> : <span className="text-gray-300 uppercase font-black tracking-tighter italic">Business Image 2 (Inside/Closer View)</span>}
+               {data.photos.business2 ? <img src={data.photos.business2} className="w-full h-full object-cover" /> : <span className="text-gray-300 uppercase font-black tracking-tighter italic">{data.verificationType === 'Job' ? "Office Image 2 (Inside/Closer View)" : "Business Image 2 (Inside/Closer View)"}</span>}
             </div>
          </div>
       </PageWrapper>
